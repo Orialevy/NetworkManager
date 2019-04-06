@@ -1,0 +1,49 @@
+Created by: Oria Levy
+Date: Apr 6, 2019
+
+
+This project is a WIFI reputation tracking system.
+The system is a server that manages the devices connected to the wifi network.
+
+I used spring- boot (an open source Java-based framework) to create a rest API based server.
+The project should be imported as Maven project and run as a Java application (i used eclipse to develop and run the app).
+
+All requests should follow the contract:
+	---------------------------- 
+	a.	Wifi Network
+		{
+			"id" : "123456",
+			"auth": <can be either 'wpa' or 'public'>,
+			"avg_throughput": <a float of average bandwidth in mbit/sec >
+			"devices":[{"id":"a1b2"},{"id":"c3d4"}]
+		}
+
+	b.	API  
+		i. fetch network by id 
+		Request: 
+		GET http://127.0.0.1:8080/my-service/api/network?id=123456
+	
+		Response: 
+		JSON of wifi network
+
+		ii. connect device to network (if no such network exists, create new one)
+		Request: 
+		PUT http://127.0.0.1:8080/my-service/api/network/connect
+		{
+			"device_id": "a1b2",
+			"network_id": "123456",
+			"auth" : "wpa"
+		}
+
+		iii. report network throughput
+		Request: 
+		POST http://127.0.0.1:8080/my-service/api/network/report
+		{
+			"device_id": "a1b2",
+			"network_id": "123456",
+			"throughput" : 500
+		}
+		Response: 
+		ok/error
+
+To create Http requests I used postman tool.
